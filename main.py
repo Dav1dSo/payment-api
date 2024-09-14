@@ -1,7 +1,9 @@
-from flask import Flask
+from flask import Flask, request
 from factory import db
 from flask_migrate import Migrate
 from models import Payments
+import logging
+from services import create_payment_pix
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "your-secret-key"
@@ -17,10 +19,14 @@ def home():
 
 
 @app.route("/payments/pix/create", methods=["POST"])
-def create_payment_pix():
+def payment_pix_create():
     """Cria pagamento do tipo PIX!"""
-    return "Cria pagamento pix"
-
+    try:
+        data = request.get_json()
+        return create_payment_pix(data)
+    except Exception as err:
+        logging.error(f"{type(err)} - {err}")
+        return {'error': 'Ocorreu um error ao criar pagamento pix!'}, 500
 
 @app.route("/payments/pix/confirmation", methods=["POST"])
 def pix_confirmation():
