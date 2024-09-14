@@ -6,7 +6,7 @@ class Payments(db.Model):
     id = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     value = db.Column(db.Float, nullable=False)
     status = db.Column(db.Boolean, nullable=False, default=False)
-    bank_payment_id = db.Column(db.Integer, nullable=True)
+    bank_payment_id = db.Column(db.String, nullable=True)
     qr_code = db.Column(db.String, nullable=True)
     data_expiracao = db.Column(db.DateTime, nullable=True)
     

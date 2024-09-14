@@ -2,6 +2,7 @@ import logging
 from models import Payments
 from datetime import datetime, timedelta
 from factory import db
+from .Bank.Pix.create_payment_bank import Pix
 
 def create_payment_pix(data):
     try:
@@ -13,9 +14,15 @@ def create_payment_pix(data):
             if i not in data:
                 return {'error': f'O campor {i} deve ser informado!'}, 400
             
+        create_pix = Pix()
+            
+        pix = create_pix.create_payment()
+        
         new_payment = Payments(
             value=data['valor'],
-            data_expiracao = data_expiracao
+            data_expiracao = data_expiracao,
+            bank_payment_id = pix['bank_payment_id'],
+            qr_code = pix['qr_code_path']
         )
         
         db.session.add(new_payment)

@@ -3,7 +3,7 @@ from factory import db
 from flask_migrate import Migrate
 from models import Payments
 import logging
-from services import create_payment_pix
+from services.payments import create_payment_pix
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "your-secret-key"
