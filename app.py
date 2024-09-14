@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, send_file
 from factory import db
 from flask_migrate import Migrate
 from models import Payments
@@ -38,6 +38,12 @@ def pix_confirmation():
 def get_payment_pix(payment_id):
     """Retorna pagamento por id"""
     return "Retorna pagamento por id!"
+
+
+@app.route("/payments/pix/qr_code/<filename>", methods=["GET"])
+def get_qr_code(filename):
+    """ Retorna o qr_code pix """
+    return send_file(f"static/img/{filename}.png", mimetype="image/png") 
 
 
 if __name__ == "__main__":
