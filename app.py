@@ -103,6 +103,10 @@ def get_qr_code(filename):
 def handle_connect():
     print("Cliente conectado!")
 
+@socketio.on('disconnect')
+def handle_disconnect():
+    print('Cliente desconectado')
+
 
 if __name__ == "__main__":
     app.run(app, debug=True)
