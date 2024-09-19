@@ -71,7 +71,10 @@ def get_payment_pix(payment_id):
     """Retorna pagamento por id"""
 
     payment = db.session.query(Payments).filter(Payments.id == payment_id).first()
-
+    
+    if payment is None:
+        return render_template('404.html')
+    
     if payment.status == True:
         return render_template(
             "confirmed_payment.html",
